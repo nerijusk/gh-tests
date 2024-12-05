@@ -14,8 +14,9 @@ jobs:
       - name: Check if deploy is needed
         id: check
         run: |
+          set -x
           set -euo pipefail
           PATH_LIST=$(mktemp)
-          echo -n "${{ fromJSON(env.PATHS) }}" >${PATH_LIST}
+          echo -n "${PATHS}" | jq -r .[] >${PATH_LIST}
           cat ${PATH_LIST}
           rm -f ${PATH_LIST}
