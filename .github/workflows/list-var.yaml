@@ -2,7 +2,10 @@ name: list var test
 on:
   workflow_dispatch:
 env:
-  PATHS: '["^LICENSE", "^.github/workflows"]'
+  # PATHS: '["^LICENSE", "^.github/workflows"]'
+  PATHS: |
+    "^LICENSE"
+    "^.github/workflows"
 jobs:
   production-deploy-needed:
     runs-on: ubuntu-latest
