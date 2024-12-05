@@ -2,7 +2,7 @@ name: list var test
 on:
   workflow_dispatch:
 env:
-  PATHS: '[".github", ".github/workflows"]'
+  PATHS: '["^LICENSE", "^.github/workflows"]'
 jobs:
   production-deploy-needed:
     runs-on: ubuntu-latest
@@ -19,4 +19,8 @@ jobs:
           PATH_LIST=$(mktemp)
           echo -n "${PATHS}" | jq -r .[] >${PATH_LIST}
           cat ${PATH_LIST}
+          PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
+          LAST_TAG=$(git tag --sort=v:refname | tail -n1)
+          echo -e "PREV_TAG: ${PREV_TAG}\nLAST_TAG: ${LAST_TAG}"
+          git diff --name-only refs/tags/${PREV_TAG}..${LAST_TAG} | grep -Ef ${PATH_LIST}
           rm -f ${PATH_LIST}
