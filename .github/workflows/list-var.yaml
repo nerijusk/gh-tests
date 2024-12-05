@@ -16,6 +16,6 @@ jobs:
         run: |
           set -euo pipefail
           PATH_LIST=$(mktemp)
-          echo -n "${PATHS}" >${PATH_LIST}
+          echo -n "${{ fromJSON(env.PATHS) }}" >${PATH_LIST}
           cat ${PATH_LIST}
           rm -f ${PATH_LIST}
