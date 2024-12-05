@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Check if deploy is needed
         id: check
         run: |
@@ -22,5 +24,5 @@ jobs:
           PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
           LAST_TAG=$(git tag --sort=v:refname | tail -n1)
           echo -e "PREV_TAG: ${PREV_TAG}\nLAST_TAG: ${LAST_TAG}"
-          git diff --name-only refs/tags/${PREV_TAG}..${LAST_TAG} | grep -Ef ${PATH_LIST}
+          git diff --name-only ${PREV_TAG}..${LAST_TAG} | grep -Ef ${PATH_LIST}
           rm -f ${PATH_LIST}
