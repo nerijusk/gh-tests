@@ -4,8 +4,8 @@ on:
 env:
   # PATHS: '["^LICENSE", "^.github/workflows"]'
   PATHS: |
-    "^LICENSE"
-    "^.github/workflows"
+    ^LICENSE
+    ^.github/workflows
 jobs:
   production-deploy-needed:
     runs-on: ubuntu-latest
