@@ -1,0 +1,21 @@
+name: list var test
+on:
+  workflow_dispatch:
+env:
+  PATHS: '[".github", ".github/workflows"]'
+jobs:
+  production-deploy-needed:
+    runs-on: ubuntu-latest
+    outputs:
+      deploy_needed: ${{ steps.check.outputs.deploy_needed }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Check if deploy is needed
+        id: check
+        run: |
+          set -euo pipefail
+          PATH_LIST=$(mktemp)
+          echo -n "${PATHS}" >${PATH_LIST}
+          cat ${PATH_LIST}
+          rm -f ${PATH_LIST}
