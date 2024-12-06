@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-set -x
+DEBUG=${RUNNER_DEBUG:-0}
+if [[ ${DEBUG} -eq 1 ]]; then
+    set -x
+fi
 set -euo pipefail
 
 PATH_LIST=$(mktemp)
-# echo -n "${PATHS}" | jq -r .[] >${PATH_LIST}
 echo -n "${PATHS}" >${PATH_LIST}
 cat ${PATH_LIST}
 PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
