@@ -29,6 +29,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Deploy
         run: |
-          set -x
           set -euo pipefail
           echo "Deploying..."
