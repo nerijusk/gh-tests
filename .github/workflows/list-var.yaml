@@ -10,7 +10,7 @@ jobs:
   production-deploy-needed:
     uses: ./.github/workflows/production-deploy-needed.yaml
     with:
-      paths: ${{ PATHS }}
+      paths: '${{ env.PATHS }}'
     # runs-on: ubuntu-latest
     # outputs:
     #   deploy_needed: ${{ steps.check.outputs.deploy_needed }}
