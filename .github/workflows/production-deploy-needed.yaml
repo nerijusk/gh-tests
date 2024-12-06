@@ -9,7 +9,7 @@ on:
     outputs:
       deploy_needed:
         description: 'Boolean indicating if deployment is needed'
-        value: ${{ steps.check.outputs.deploy_needed }}
+        value: ${{ jobs.production-deploy-needed.outputs.deploy_needed }}
 jobs:
   production-deploy-needed:
     runs-on: ubuntu-latest
