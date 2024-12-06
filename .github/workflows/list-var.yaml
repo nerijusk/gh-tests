@@ -8,7 +8,9 @@ env:
     ^.github/workflows
 jobs:
   production-deploy-needed:
-    uses: ./.github/actions/production-deploy-needed.yaml
+    uses: ./.github/actions/production-deploy-needed.yaml@v1
+    with:
+      paths: ${{ env.PATHS }}
     # runs-on: ubuntu-latest
     # outputs:
     #   deploy_needed: ${{ steps.check.outputs.deploy_needed }}
