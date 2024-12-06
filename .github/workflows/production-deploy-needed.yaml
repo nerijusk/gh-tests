@@ -25,6 +25,7 @@ jobs:
         env:
           PATHS: ${{ toJson(inputs.paths) }}
         run: |
+          env | sort
           set -x
           set -euo pipefail
           PATH_LIST=$(mktemp)
