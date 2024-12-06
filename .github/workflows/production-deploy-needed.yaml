@@ -1,11 +1,11 @@
 name: Check if production deployment is needed
 on:
   workflow_call:
-    inputs:
-      paths:
-        description: 'JSON array of paths to check for changes'
-        required: true
-        type: string
+    # inputs:
+    #   paths:
+    #     description: 'JSON array of paths to check for changes'
+    #     required: true
+    #     type: string
     outputs:
       deploy_needed:
         description: 'Boolean indicating if deployment is needed'
@@ -22,8 +22,8 @@ jobs:
           fetch-depth: 0
       - name: Check if deploy is needed
         id: check
-        env:
-          PATHS: ${{ fromJson(inputs.paths) }}
+        # env:
+        #   PATHS: ${{ fromJson(inputs.paths) }}
         run: |
           env | sort
           set -x

@@ -9,8 +9,8 @@ env:
 jobs:
   production-deploy-needed:
     uses: ./.github/workflows/production-deploy-needed.yaml
-    with:
-      paths: ${{ toJson(env.paths) }}
+    # with:
+    #   paths: ${{ toJson(env.paths) }}
     # runs-on: ubuntu-latest
     # outputs:
     #   deploy_needed: ${{ steps.check.outputs.deploy_needed }}
