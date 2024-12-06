@@ -23,7 +23,7 @@ jobs:
       - name: Check if deploy is needed
         id: check
         env:
-          PATHS: ${{ toJson(inputs.paths) }}
+          PATHS: ${{ fromJson(inputs.paths) }}
         run: |
           env | sort
           set -x
