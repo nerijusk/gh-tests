@@ -58,9 +58,9 @@ jobs:
         env:
           PR_LABEL: ${{ github.event.label.name }}
           PR_ACTION: ${{ github.event.action }}
-          PR_EVENT: ${{ toJson(github.event) }}
+          PR_LABELS: ${{ toJson(github.event.labels) }}
         run: |
-          echo "${PR_EVENT}" | jq -r .
+          echo "${PR_LABELS}" | jq -r .
           if [[ "${PR_ACTION}" == "closed" ]]; then
             LABEL_NAME="all"
           else
