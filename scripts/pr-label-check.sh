@@ -8,4 +8,7 @@ set -euo pipefail
 
 LABELS_FILE=$(mktemp)
 echo ${PR_LABELS} >${LABELS_FILE}
-jq -r .[].name ${LABELS_FILE} | sed 's/ //g' | cut -f2 -d:
+for PR_ENV in $(jq -r .[].name ${LABELS_FILE} | sed 's/ //g' | cut -f2 -d:); do
+    echo "PR_ENV=${PR_ENV}"
+    echo "----------------"
+done
