@@ -61,12 +61,16 @@ jobs:
           echo "label_name=${LABEL_NAME}" >>${GITHUB_ENV}
       - id: set-matrix
         uses: actions/github-script@v7
+        env:
+          label_name: ${{ env.label_name }}
         with:
           script: |
-            if ( ${label_name} === 'all' ) {
-                  return require('./markets.json')
-            }
-            return [${label_name}]
+            const { LABEL_NAME } = process.env
+            console.log(`${LABEL_NAME}`)
+            # if ( ${label_name} === 'all' ) {
+            #       return require('./markets.json')
+            # }
+            # return [${label_name}]
 
   deploy:
     runs-on: ubuntu-latest
