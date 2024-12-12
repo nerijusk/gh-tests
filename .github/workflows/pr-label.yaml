@@ -33,9 +33,14 @@ jobs:
         id: set-matrix-all
         if: ${{ env.label_name == 'all' }}
         run: |
-          echo "all"
-      - name: Label ${{ label_name }}
+          echo "all: ${label_name}"
+          echo "all: ${env.label_name}"
+      - name: Label ${{ env.label_name }}
         id: set-matrix-specific
         if: ${{ env.label_name != 'all' }}
         run: |
           echo "NOT all: ${label_name}"
+          echo "NOT all: ${env.label_name}"
+      - name: Show env
+        run: |
+          env | sort
