@@ -1,0 +1,22 @@
+name: pr label test
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+env:
+  RUNNER_DEBUG: 1
+jobs:
+  production-deploy-needed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check labels
+        id: check
+        env:
+          PR_LABELS: ${{ toJson(github.event.pull_request.labels) }}
+        run: bash scripts/pr-label-check.sh
