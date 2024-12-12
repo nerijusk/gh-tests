@@ -7,9 +7,10 @@ fi
 set -euo pipefail
 
 LABELS_FILE=$(mktemp)
-[[ ${DEBUG} -eq 1 ]] && jq -r . ${LABELS_FILE} && echo "-----------------"
 
 echo ${PR_LABELS} >${LABELS_FILE}
+[[ ${DEBUG} -eq 1 ]] && jq -r . ${LABELS_FILE} && echo "-----------------"
+
 for PR_ENV in $(jq -r .[].name ${LABELS_FILE} | sed 's/ //g' | cut -f2 -d:); do
     echo "PR_ENV=${PR_ENV}"
     echo "----------------"
