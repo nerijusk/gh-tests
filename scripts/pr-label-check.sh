@@ -6,5 +6,6 @@ if [[ ${DEBUG} -eq 1 ]]; then
 fi
 set -euo pipefail
 
-echo ${PR_LABELS}
-echo ${PR_LABELS} | jq -r .
+LABELS_FILE=$(mktemp)
+echo ${PR_LABELS} >${LABELS_FILE}
+jq -r .[].name ${LABELS_FILE} | sed 's/ //g' | cut -f2 -d:
