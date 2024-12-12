@@ -43,7 +43,7 @@ jobs:
   #       run: |
   #         env | sort
   markets:
-    if: ${{ startsWith(github.event.label.name, 'pr_env:') }}
+    if: ${{ startsWith(github.event.label.name, 'pr_env:') || github.event.action == 'closed' }}
     runs-on: ubuntu-latest
     outputs:
       markets: ${{ steps.set-matrix.outputs.result }}
@@ -56,8 +56,13 @@ jobs:
         id: label-check
         env:
           PR_LABEL: ${{ github.event.label.name }}
+          PR_ACTION: ${{ github.event.action }}
         run: |
-          LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
+          if [[ "${PR_ACTION}" == "closed" ]]; then
+            LABEL_NAME="all"
+          else
+            LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
+          fi
           echo "label_name=${LABEL_NAME}"
           echo "label_name=${LABEL_NAME}" >>${GITHUB_ENV}
       - id: set-matrix
@@ -67,7 +72,6 @@ jobs:
         with:
           script: |
             const { LABEL_NAME } = process.env
-            console.log(`LABEL_NAME: ${LABEL_NAME}`)
             if ( LABEL_NAME === 'all' ) {
               return require('./markets.json')
             }
