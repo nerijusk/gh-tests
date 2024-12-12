@@ -66,6 +66,7 @@ jobs:
         with:
           script: |
             const { LABEL_NAME } = process.env
+            console.log(`LABEL_NAME: ${LABEL_NAME}`)
 
 # console.log(`${LABEL_NAME}`)
 # if ( ${label_name} === 'all' ) {
