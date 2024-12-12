@@ -6,7 +6,7 @@ on:
       - labeled
       - unlabeled
 env:
-  RUNNER_DEBUG: 1
+  RUNNER_DEBUG: 0
 jobs:
   label-check:
     runs-on: ubuntu-latest

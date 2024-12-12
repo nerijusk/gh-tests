@@ -6,7 +6,8 @@ if [[ ${DEBUG} -eq 1 ]]; then
 fi
 set -euo pipefail
 
-echo "${PR_EVENT}" | jq -r .
+echo -n "ACTION: " && echo "${PR_EVENT}" | jq -r .action
+echo -n "LABEL: " && echo "${PR_EVENT}" | jq -r .label
 
 LABELS_FILE=$(mktemp)
 
