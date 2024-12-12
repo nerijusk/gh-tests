@@ -43,6 +43,7 @@ jobs:
   #       run: |
   #         env | sort
   markets:
+    if: ${{ startsWith(github.event.label.name, 'pr_env:') }}
     runs-on: ubuntu-latest
     outputs:
       markets: ${{ steps.set-matrix.outputs.result }}
@@ -54,7 +55,6 @@ jobs:
       - name: Label check
         id: label-check
         env:
-          # PR_LABEL: ${{ toJson(github.event.label.name) }}
           PR_LABEL: ${{ github.event.label.name }}
         run: |
           LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
