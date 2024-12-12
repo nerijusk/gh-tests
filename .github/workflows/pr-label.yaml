@@ -5,6 +5,7 @@ on:
     types:
       - labeled
       - unlabeled
+      - closed
 env:
   RUNNER_DEBUG: 0
 jobs:
