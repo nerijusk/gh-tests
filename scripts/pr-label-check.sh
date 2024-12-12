@@ -6,4 +6,6 @@ if [[ ${DEBUG} -eq 1 ]]; then
 fi
 set -euo pipefail
 
-echo ${PR_LABELS}
+LABEL_NAME=$(echo ${PR_LABEL} | jq -r .name | sed 's/ //g' | cut -f2 -d:)
+echo "ACTION: ${PR_ACTION}"
+echo "LABEL: ${LABEL_NAME}"
