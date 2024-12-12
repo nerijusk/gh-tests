@@ -28,7 +28,7 @@ jobs:
         run: |
           LABEL_NAME=$(echo "${PR_LABEL}" | jq -r .name | sed 's/ //g' | cut -f2 -d:)
           echo "label_name=${LABEL_NAME}"
-          echo "label_name=${LABEL_NAME}" >>${GITHUB_OUTPUT}
+          echo "label_name=${LABEL_NAME}" >>${GITHUB_ENV}
       - name: Label all
         id: set-matrix-all
         if: ${{ env.label_name == 'all' }}
