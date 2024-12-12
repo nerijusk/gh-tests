@@ -19,5 +19,5 @@ jobs:
         id: check
         env:
           PR_LABEL: ${{ toJson(github.event.label) }}
-          PR_ACTION: ${{ toJson(github.event.action) }}
+          PR_ACTION: ${{ github.event.action }}
         run: bash scripts/pr-label-check.sh

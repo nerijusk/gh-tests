@@ -8,4 +8,4 @@ set -euo pipefail
 
 LABEL_NAME=$(echo ${PR_LABEL} | jq -r .name | sed 's/ //g' | cut -f2 -d:)
 echo "ACTION: ${PR_ACTION}"
-echo -n "LABEL: ${LABEL_NAME}"
+echo "LABEL: ${LABEL_NAME}"
