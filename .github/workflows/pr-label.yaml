@@ -32,4 +32,5 @@ jobs:
         run: echo "all"
       - id: set-matrix-specific
         if: ${{ env.label_name != 'all' }}
-        run: echo "NOT all"
+        run: |
+          echo "NOT all: ${label_name}"
