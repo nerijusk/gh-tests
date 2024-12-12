@@ -7,3 +7,4 @@ fi
 set -euo pipefail
 
 echo ${PR_LABELS}
+echo ${PR_LABELS} | jq -r .
