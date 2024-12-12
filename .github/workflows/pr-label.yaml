@@ -63,10 +63,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            if ( env.label_name === 'all' ) {
+            if ( ${label_name} === 'all' ) {
                   return require('./markets.json')
             }
-            return [env.label_name]
+            return [${label_name}]
 
   deploy:
     runs-on: ubuntu-latest
