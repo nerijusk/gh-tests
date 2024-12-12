@@ -15,22 +15,27 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Check labels
+      - name: Show label
         id: check
         env:
           PR_LABEL: ${{ toJson(github.event.label) }}
           PR_ACTION: ${{ github.event.action }}
         run: bash scripts/pr-label-check.sh
-      - id: label-check
+      - name: Label check
+        id: label-check
         env:
           PR_LABEL: ${{ toJson(github.event.label) }}
         run: |
           LABEL_NAME=$(echo "${PR_LABEL}" | jq -r .name | sed 's/ //g' | cut -f2 -d:)
+          echo "label_name=${LABEL_NAME}"
           echo "label_name=${LABEL_NAME}" >>${GITHUB_OUTPUT}
-      - id: set-matrix-all
+      - name: Label all
+        id: set-matrix-all
         if: ${{ env.label_name == 'all' }}
-        run: echo "all"
-      - id: set-matrix-specific
+        run: |
+          echo "all"
+      - name: Label ${{ label_name }}
+        id: set-matrix-specific
         if: ${{ env.label_name != 'all' }}
         run: |
           echo "NOT all: ${label_name}"
