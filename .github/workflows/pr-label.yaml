@@ -66,20 +66,21 @@ jobs:
         with:
           script: |
             const { LABEL_NAME } = process.env
-            # console.log(`${LABEL_NAME}`)
-            # if ( ${label_name} === 'all' ) {
-            #       return require('./markets.json')
-            # }
-            # return [${label_name}]
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs:
-      - markets
-    strategy:
-      fail-fast: false
-      matrix:
-        market: ${{ fromJson(needs.markets.outputs.markets) }}
-    steps:
-      - name: Deploy
-        run: echo "Deploying to ${{ matrix.market }}"
+# console.log(`${LABEL_NAME}`)
+# if ( ${label_name} === 'all' ) {
+#       return require('./markets.json')
+# }
+# return [${label_name}]
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - markets
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       market: ${{ fromJson(needs.markets.outputs.markets) }}
+  #   steps:
+  #     - name: Deploy
+  #       run: echo "Deploying to ${{ matrix.market }}"
