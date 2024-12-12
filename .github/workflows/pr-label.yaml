@@ -54,9 +54,10 @@ jobs:
       - name: Label check
         id: label-check
         env:
-          PR_LABEL: ${{ toJson(github.event.label) }}
+          PR_LABEL: ${{ toJson(github.event.label.name) }}
         run: |
-          LABEL_NAME=$(echo "${PR_LABEL}" | jq -r .name | sed 's/ //g' | cut -f2 -d:)
+          # LABEL_NAME=$(echo "${PR_LABEL}" | jq -r .name | sed 's/ //g' | cut -f2 -d:)
+          LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/ //g' | cut -f2 -d:)
           echo "label_name=${LABEL_NAME}"
           echo "label_name=${LABEL_NAME}" >>${GITHUB_ENV}
       - id: set-matrix
