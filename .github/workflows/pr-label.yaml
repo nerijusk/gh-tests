@@ -8,7 +8,7 @@ on:
 env:
   RUNNER_DEBUG: 1
 jobs:
-  production-deploy-needed:
+  label-check:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
