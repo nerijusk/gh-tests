@@ -6,6 +6,8 @@ if [[ ${DEBUG} -eq 1 ]]; then
 fi
 set -euo pipefail
 
+echo "${PR_EVENT}" | jq -r .
+
 LABELS_FILE=$(mktemp)
 
 echo ${PR_LABELS} >${LABELS_FILE}
