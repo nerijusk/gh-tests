@@ -67,12 +67,10 @@ jobs:
           script: |
             const { LABEL_NAME } = process.env
             console.log(`LABEL_NAME: ${LABEL_NAME}`)
-
-# console.log(`${LABEL_NAME}`)
-# if ( ${label_name} === 'all' ) {
-#       return require('./markets.json')
-# }
-# return [${label_name}]
+            if ( LABEL_NAME === 'all' ) {
+              return require('./markets.json')
+            }
+            return [LABEL_NAME]
 
   # deploy:
   #   runs-on: ubuntu-latest
