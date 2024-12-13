@@ -64,9 +64,8 @@ jobs:
             PRL=$(echo "${PRL}" | cut -f2 -d:)
             ULABEL="\"${PRL}\",${ULABEL}"
           done
-          ULABEL=${ULABEL::-1}
           echo "ulabel=${ULABEL}"
-          echo "ulabel=${ULABEL}" >>${GITHUB_ENV}
+          echo "ulabel=${ULABEL::-1}" >>${GITHUB_ENV}
           if [[ "${PR_ACTION}" == "closed" ]]; then
             LABEL_NAME="all"
           else
@@ -87,7 +86,8 @@ jobs:
             if ( LABEL_NAME === 'all' ) {
               return require('./markets.json')
             }
-            return [LABEL_NAME]
+            # return [LABEL_NAME]
+            return [ULABEL]
 
   deploy:
     runs-on: ubuntu-latest
