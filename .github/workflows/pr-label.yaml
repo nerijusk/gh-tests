@@ -62,7 +62,7 @@ jobs:
         run: |
           for PRL in $(echo "${PR_LABELS}" | jq -r .[].name | sed 's/ //g'); do
             PRL=$(echo "${PRL}" | cut -f2 -d:)
-            ULABEL="${PRL},${ULABEL}"
+            ULABEL="\"${PRL}\"",${ULABEL}"
           done
           echo "ulabel=${ULABEL}"
           echo "ulabel=${ULABEL::-1}" >>${GITHUB_ENV}
