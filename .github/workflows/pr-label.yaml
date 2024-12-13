@@ -62,7 +62,7 @@ jobs:
         run: |
           for PRL in $(echo "${PR_LABELS}" | jq -r .[].name | sed 's/ //g'); do
             PRL=$(echo "${PRL}" | cut -f2 -d:)
-            ULABEL="\"${PRL}\",${ULABEL}"
+            ULABEL="${PRL},${ULABEL}"
           done
           echo "ulabel=${ULABEL}"
           echo "ulabel=${ULABEL::-1}" >>${GITHUB_ENV}
@@ -83,12 +83,12 @@ jobs:
             const { LABEL_NAME, ULABEL } = process.env
             console.log('LABEL_NAME: ', LABEL_NAME)
             console.log('ULABEL: ', ULABEL)
-            // console.log(`ULABEL: ${ULABEL}`)
             if ( LABEL_NAME === 'all' ) {
               return require('./markets.json')
             }
             // return [LABEL_NAME]
-            return [ULABEL]
+            // return [ULABEL]
+            return ULABEL.split(',')
 
   deploy:
     runs-on: ubuntu-latest
