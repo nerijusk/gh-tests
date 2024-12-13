@@ -8,6 +8,7 @@ set -euo pipefail
 
 case "${PR_ACTION}" in
 "reopened" | "synchronize")
+    LABEL_LIST=""
     for LABEL in $(echo "${PR_LABELS}" | jq -r .[].name | sed 's/ //g'); do
         if [[ "${LABEL}" =~ ^pr_env:.* ]]; then
             LABEL=$(echo "${LABEL}" | cut -f2 -d:)
