@@ -60,7 +60,11 @@ jobs:
           PR_ACTION: ${{ github.event.action }}
           PR_LABELS: ${{ toJson(github.event.pull_request.labels) }}
         run: |
-          echo "${PR_LABELS}" | jq -r .
+          LABEL_NAME=""
+          for PRL in $(echo "${PR_LABELS}" | jq -r .[].name); do
+            LABEL_NAME="\"${PRL}\",${LABEL_NAME}"
+          done
+          echo "${LABEL_NAME::-1}"
           if [[ "${PR_ACTION}" == "closed" ]]; then
             LABEL_NAME="all"
           else
