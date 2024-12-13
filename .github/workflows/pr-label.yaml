@@ -60,14 +60,12 @@ jobs:
           PR_ACTION: ${{ github.event.action }}
           PR_LABELS: ${{ toJson(github.event.pull_request.labels) }}
         run: |
-          # LABEL_NAME=""
-          set -x
           for PRL in $(echo "${PR_LABELS}" | jq -r .[].name | sed 's/ //g'); do
             PRL=$(echo "${PRL}" | cut -f2 -d:)
-            LABEL_NAME="\"${PRL}\",${LABEL_NAME}"
+            ULABEL="\"${PRL}\",${ULABEL}"
           done
-          set +x
-          echo "${LABEL_NAME::-1}"
+          ULABEL=${LABEL_NAME::-1}
+          echo "ulabel=${ULABEL}" >>${GITHUB_ENV}
           if [[ "${PR_ACTION}" == "closed" ]]; then
             LABEL_NAME="all"
           else
@@ -79,9 +77,12 @@ jobs:
         uses: actions/github-script@v7
         env:
           LABEL_NAME: ${{ env.label_name }}
+          ULABEL: ${{ env.ulabel }}
         with:
           script: |
-            const { LABEL_NAME } = process.env
+            const { LABEL_NAME, ULABEL } = process.env
+            console.log('LABEL_NAME', LABEL_NAME)
+            console.log('ULABEL', ULABEL)
             if ( LABEL_NAME === 'all' ) {
               return require('./markets.json')
             }
