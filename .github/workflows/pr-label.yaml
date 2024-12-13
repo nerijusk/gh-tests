@@ -6,6 +6,8 @@ on:
       - labeled
       - unlabeled
       - closed
+      - reopened
+      - synchronize
 env:
   RUNNER_DEBUG: 0
 jobs:
@@ -44,7 +46,7 @@ jobs:
   #       run: |
   #         env | sort
   markets:
-    if: ${{ startsWith(github.event.label.name, 'pr_env:') || github.event.action == 'closed' }}
+    # if: ${{ startsWith(github.event.label.name, 'pr_env:') || github.event.action == 'closed' }}
     runs-on: ubuntu-latest
     outputs:
       markets: ${{ steps.set-matrix.outputs.result }}
@@ -59,20 +61,7 @@ jobs:
           PR_LABEL: ${{ github.event.label.name }}
           PR_ACTION: ${{ github.event.action }}
           PR_LABELS: ${{ toJson(github.event.pull_request.labels) }}
-        run: |
-          for PRL in $(echo "${PR_LABELS}" | jq -r .[].name | sed 's/ //g'); do
-            PRL=$(echo "${PRL}" | cut -f2 -d:)
-            ULABEL="${PRL},${ULABEL}"
-          done
-          echo "ulabel=${ULABEL}"
-          echo "ulabel=${ULABEL::-1}" >>${GITHUB_ENV}
-          if [[ "${PR_ACTION}" == "closed" ]]; then
-            LABEL_NAME="all"
-          else
-            LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
-          fi
-          echo "label_name=${LABEL_NAME}"
-          echo "label_name=${LABEL_NAME}" >>${GITHUB_ENV}
+        run: bash scripts/deployment-labels.sh
       - id: set-matrix
         uses: actions/github-script@v7
         env:
