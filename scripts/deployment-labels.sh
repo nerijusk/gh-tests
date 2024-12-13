@@ -18,12 +18,10 @@ case "${PR_ACTION}" in
     [[ -z "${LABEL_LIST}" ]] && LABEL_LIST=","
     # drop the last comma when setting GH env var
     echo "label_list=${LABEL_LIST::-1}" >>${GITHUB_ENV}
-    break
     ;;
 "labeled" | "unlabeled")
     LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
     echo "label_list=${LABEL_NAME}" >>${GITHUB_ENV}
-    break
     ;;
 esac
 

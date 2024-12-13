@@ -65,19 +65,19 @@ jobs:
       - id: set-matrix
         uses: actions/github-script@v7
         env:
-          LABEL_NAME: ${{ env.label_name }}
-          ULABEL: ${{ env.ulabel }}
+          LABEL_LIST: ${{ env.label_list }}
         with:
           script: |
-            const { LABEL_NAME, ULABEL } = process.env
-            console.log('LABEL_NAME: ', LABEL_NAME)
-            console.log('ULABEL: ', ULABEL)
-            if ( LABEL_NAME === 'all' ) {
+            const { LABEL_LIST } = process.env
+            console.log('LABEL_LIST: ', LABEL_LIST)
+            if ( LABEL_LIST === 'all' ) {
               return require('./markets.json')
             }
             // return [LABEL_NAME]
             // return [ULABEL]
-            return ULABEL.split(',')
+            // return ULABEL.split(',')
+            LABELS = LABEL_LIST.split(',')
+            return [LABELS]
 
   deploy:
     runs-on: ubuntu-latest
