@@ -76,8 +76,7 @@ jobs:
             // return [LABEL_NAME]
             // return [ULABEL]
             // return ULABEL.split(',')
-            LABELS = LABEL_LIST.split(',')
-            return [LABELS]
+            return LABEL_LIST.split(',')
 
   deploy:
     runs-on: ubuntu-latest
