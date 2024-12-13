@@ -64,7 +64,8 @@ jobs:
             PRL=$(echo "${PRL}" | cut -f2 -d:)
             ULABEL="\"${PRL}\",${ULABEL}"
           done
-          ULABEL=${LABEL_NAME::-1}
+          ULABEL=${ULABEL::-1}
+          echo "ulabel=${ULABEL}"
           echo "ulabel=${ULABEL}" >>${GITHUB_ENV}
           if [[ "${PR_ACTION}" == "closed" ]]; then
             LABEL_NAME="all"
@@ -81,8 +82,8 @@ jobs:
         with:
           script: |
             const { LABEL_NAME, ULABEL } = process.env
-            console.log('LABEL_NAME', LABEL_NAME)
-            console.log('ULABEL', ULABEL)
+            console.log('LABEL_NAME: ', LABEL_NAME)
+            console.log('ULABEL: ', ULABEL)
             if ( LABEL_NAME === 'all' ) {
               return require('./markets.json')
             }
