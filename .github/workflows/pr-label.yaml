@@ -86,8 +86,8 @@ jobs:
             if ( LABEL_NAME === 'all' ) {
               return require('./markets.json')
             }
-            # return [LABEL_NAME]
-            return [ULABEL]
+            return [LABEL_NAME]
+            # return [ULABEL]
 
   deploy:
     runs-on: ubuntu-latest
