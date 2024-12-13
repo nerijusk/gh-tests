@@ -82,12 +82,13 @@ jobs:
           script: |
             const { LABEL_NAME, ULABEL } = process.env
             console.log('LABEL_NAME: ', LABEL_NAME)
-            console.log('ULABEL: ', ULABEL)
+            // console.log('ULABEL: ', ULABEL)
+            console.log(`ULABEL: ${ULABEL}`)
             if ( LABEL_NAME === 'all' ) {
               return require('./markets.json')
             }
             return [LABEL_NAME]
-            # return [ULABEL]
+            // return [ULABEL]
 
   deploy:
     runs-on: ubuntu-latest
