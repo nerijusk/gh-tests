@@ -62,8 +62,8 @@ jobs:
         run: |
           # LABEL_NAME=""
           set -x
-          for PRL in $(echo "${PR_LABELS}" | jq -r .[].name); do
-            PRL=$(echo "${PRL}" | sed 's/[ "]//g' | cut -f2 -d:)
+          for PRL in $(echo "${PR_LABELS}" | jq -r .[].name | sed 's/ //g'); do
+            PRL=$(echo "${PRL}" | cut -f2 -d:)
             LABEL_NAME="\"${PRL}\",${LABEL_NAME}"
           done
           set +x
