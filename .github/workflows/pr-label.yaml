@@ -84,4 +84,6 @@ jobs:
         market: ${{ fromJson(needs.markets.outputs.markets) }}
     steps:
       - name: Deploy
-        run: echo "Deploying to ${{ matrix.market }}"
+        run: |
+          echo "Matrix: ${{ matrix.market }}"
+          echo "Markets: ${{ needs.markets.outputs.markets }}"
