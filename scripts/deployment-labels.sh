@@ -22,7 +22,7 @@ case "${PR_ACTION}" in
     ;;
 "labeled" | "unlabeled")
     LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
-    echo "label_list=${PR_NAME}" >>${GITHUB_ENV}
+    echo "label_list=${LABEL_NAME}" >>${GITHUB_ENV}
     break
     ;;
 esac
