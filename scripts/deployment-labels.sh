@@ -21,7 +21,11 @@ case "${PR_ACTION}" in
     echo "label_list=${LABEL_LIST::-1}" >>${GITHUB_ENV}
     ;;
 "labeled" | "unlabeled")
-    LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
+    if [[ "${PR_LABEL}" =~ ^pr_env:.* ]]; then
+        LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
+    else
+        LABEL_NAME=""
+    fi
     echo "label_list=${LABEL_NAME}" >>${GITHUB_ENV}
     ;;
 esac

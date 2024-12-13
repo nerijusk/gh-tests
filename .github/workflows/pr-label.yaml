@@ -46,7 +46,6 @@ jobs:
   #       run: |
   #         env | sort
   markets:
-    # if: ${{ startsWith(github.event.label.name, 'pr_env:') || github.event.action == 'closed' }}
     runs-on: ubuntu-latest
     outputs:
       markets: ${{ steps.set-matrix.outputs.result }}
@@ -69,13 +68,9 @@ jobs:
         with:
           script: |
             const { LABEL_LIST } = process.env
-            console.log('LABEL_LIST: ', LABEL_LIST)
             if ( LABEL_LIST === 'all' ) {
               return require('./markets.json')
             }
-            // return [LABEL_NAME]
-            // return [ULABEL]
-            // return ULABEL.split(',')
             return LABEL_LIST.split(',')
 
   deploy:
