@@ -74,6 +74,7 @@ jobs:
             return LABEL_LIST.split(',')
 
   deploy:
+    if: ${{ needs.markets.outputs.markets != '' }}
     runs-on: ubuntu-latest
     needs:
       - markets
