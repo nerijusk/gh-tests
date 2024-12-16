@@ -67,7 +67,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Invalid environment labels: ${{ env.BAD_LABELS }}
+            Invalid environment labels found: ${{ env.BAD_LABELS }}
             Please remove them from the PR.
       - name: Set matrix
         id: set-matrix
