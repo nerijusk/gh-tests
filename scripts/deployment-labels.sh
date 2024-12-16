@@ -13,9 +13,9 @@ case "${PR_ACTION}" in
     for LABEL in $(echo "${PR_LABELS}" | jq -r .[].name | sed 's/ //g'); do
         if [[ "${LABEL}" =~ ^pr_env:.* ]]; then
             LABEL=$(echo "${LABEL}" | cut -f2 -d:)
-            LABEL_CHECK=$(grep --count "${LABEL_NAME}" markets.json || true)
+            LABEL_CHECK=$(grep --count "${LABEL}" markets.json || true)
             if [[ ${LABEL_CHECK} -eq 0 ]]; then
-                BAD_LABELS="${LABEL_NAME}, ${BAD_LABELS}"
+                BAD_LABELS="${LABEL}, ${BAD_LABELS}"
             else
                 LABEL_LIST="${LABEL},${LABEL_LIST}"
             fi
@@ -28,16 +28,16 @@ case "${PR_ACTION}" in
     ;;
 "labeled" | "unlabeled")
     if [[ "${PR_LABEL}" =~ ^pr_env:.* ]]; then
-        LABEL_NAME=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
-        LABEL_CHECK=$(grep --count "${LABEL_NAME}" markets.json || true)
+        LABEL=$(echo "${PR_LABEL}" | sed 's/[ "]//g' | cut -f2 -d:)
+        LABEL_CHECK=$(grep --count "${LABEL}" markets.json || true)
         if [[ ${LABEL_CHECK} -eq 0 ]]; then
-            BAD_LABELS="${LABEL_NAME}"
-            LABEL_NAME=""
+            BAD_LABELS="${LABEL}"
+            LABEL=""
         fi
     else
-        LABEL_NAME=""
+        LABEL=""
     fi
-    echo "LABEL_LIST=${LABEL_NAME}" >>${GITHUB_ENV}
+    echo "LABEL_LIST=${LABEL}" >>${GITHUB_ENV}
     ;;
 esac
 
