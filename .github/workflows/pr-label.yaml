@@ -9,7 +9,7 @@ on:
       - reopened
       - synchronize
 env:
-  RUNNER_DEBUG: 1
+  RUNNER_DEBUG: 0
 jobs:
   # label-check:
   #   runs-on: ubuntu-latest
