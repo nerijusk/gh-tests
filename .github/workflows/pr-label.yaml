@@ -61,7 +61,16 @@ jobs:
           PR_ACTION: ${{ github.event.action }}
           PR_LABELS: ${{ toJson(github.event.pull_request.labels) }}
         run: bash scripts/deployment-labels.sh
-      - id: set-matrix
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v4
+        if: ${{ env.BAD_LABELS != "" }}
+        with:
+          issue-number: github.event.pull_request.number
+          body: |
+            Invalid environment labels: ${{ env.BAD_LABELS }}
+            Please remove them from the PR.
+      - name: Set matrix
+        id: set-matrix
         uses: actions/github-script@v7
         with:
           script: |
