@@ -63,7 +63,7 @@ jobs:
         run: bash scripts/deployment-labels.sh
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v4
-        if: ${{ env.BAD_LABELS != "" }}
+        if: ${{ env.BAD_LABELS != '' }}
         with:
           issue-number: github.event.pull_request.number
           body: |
