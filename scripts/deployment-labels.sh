@@ -24,7 +24,7 @@ case "${PR_ACTION}" in
     # in case no labels are found
     [[ -z "${LABEL_LIST}" ]] && LABEL_LIST=","
     # drop the last comma when setting GH env var
-    echo "label_list=${LABEL_LIST::-1}" >>${GITHUB_ENV}
+    echo "LABEL_LIST=${LABEL_LIST::-1}" >>${GITHUB_ENV}
     ;;
 "labeled" | "unlabeled")
     if [[ "${PR_LABEL}" =~ ^pr_env:.* ]]; then
@@ -37,11 +37,11 @@ case "${PR_ACTION}" in
     else
         LABEL_NAME=""
     fi
-    echo "label_list=${LABEL_NAME}" >>${GITHUB_ENV}
+    echo "LABEL_LIST=${LABEL_NAME}" >>${GITHUB_ENV}
     ;;
 esac
 
 # show final label list
-grep label_list ${GITHUB_ENV}
+grep LABEL_LIST ${GITHUB_ENV}
 [[ -n ${BAD_LABELS} ]] && echo "Found invalid labels: ${BAD_LABELS}"
 #  >>${GITHUB_ENV}
