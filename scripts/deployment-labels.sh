@@ -43,5 +43,7 @@ esac
 
 # show final label list
 grep LABEL_LIST ${GITHUB_ENV}
-[[ -n ${BAD_LABELS} ]] && echo "Found invalid labels: ${BAD_LABELS}"
-#  >>${GITHUB_ENV}
+if [[ -n ${BAD_LABELS} ]]; then
+    echo "Found invalid labels: ${BAD_LABELS}"
+    echo "BAD_LABELS=${BAD_LABELS}" >>${GITHUB_ENV}
+fi
