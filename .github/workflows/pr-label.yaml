@@ -99,4 +99,4 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            PR environment deployed at: https://stage.example.com/${{ inputs.market }}/app/pr${{ github.event.pull_request.number }}
+            PR environment deployed at: https://stage.example.com/${{ matrix.market }}/app/pr${{ github.event.pull_request.number }}
