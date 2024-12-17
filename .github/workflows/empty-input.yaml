@@ -12,3 +12,6 @@ jobs:
     steps:
       - name: Run a one-line script
         run: echo "Hello, ${{ inputs.logLevel }}"
+      - name: Exit code test
+        continue-on-error: true
+        run: exit 1
