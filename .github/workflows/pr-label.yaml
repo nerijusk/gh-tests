@@ -94,3 +94,9 @@ jobs:
         run: |
           echo "Matrix: ${{ matrix.market }}"
           echo "Markets: ${{ needs.markets.outputs.markets }}"
+      - name: Add comment about deployed PR environment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            PR environment deployed at: https://stage.example.com/${{ inputs.market }}/app/pr${{ github.event.pull_request.number }}
