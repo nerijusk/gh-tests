@@ -1,4 +1,4 @@
-name: input test
+name: remote test
 on:
   workflow_dispatch:
     inputs:
