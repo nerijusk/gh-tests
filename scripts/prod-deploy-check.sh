@@ -15,8 +15,18 @@ echo -n "${PATHS}" >${PATH_LIST}
 echo "Paths to check:"
 cat ${PATH_LIST}
 
-PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
-LAST_TAG=$(git tag --sort=v:refname | tail -n1)
+case "${GITHUB_EVENT_NAME}" in
+"push")
+    PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
+    LAST_TAG=$(git tag --sort=v:refname | tail -n1)
+    ;;
+"pull_request")
+    PREV_TAG="main"
+    LAST_TAG="HEAD"
+    ;;
+
+esac
+
 echo -e "PREV_TAG: ${PREV_TAG}\nLAST_TAG: ${LAST_TAG}"
 
 CHANGES_DETECTED=$(git diff --name-only ${PREV_TAG}..${LAST_TAG} | grep -Ef ${PATH_LIST} | wc -l || true)
