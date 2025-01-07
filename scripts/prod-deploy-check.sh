@@ -4,6 +4,9 @@ DEBUG=${RUNNER_DEBUG:-0}
 if [[ ${DEBUG} -eq 1 ]]; then
     set -x
 fi
+
+env | sort
+
 set -euo pipefail
 
 PATH_LIST=$(mktemp)
