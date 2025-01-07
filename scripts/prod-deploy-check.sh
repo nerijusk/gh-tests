@@ -3,9 +3,8 @@
 DEBUG=${RUNNER_DEBUG:-0}
 if [[ ${DEBUG} -eq 1 ]]; then
     set -x
+    env | sort
 fi
-
-env | sort
 
 set -euo pipefail
 
@@ -21,8 +20,8 @@ case "${GITHUB_EVENT_NAME}" in
     LAST_TAG=$(git tag --sort=v:refname | tail -n1)
     ;;
 "pull_request")
-    PREV_TAG="main"
-    LAST_TAG="HEAD"
+    PREV_TAG=main
+    LAST_TAG=HEAD
     ;;
 
 esac
