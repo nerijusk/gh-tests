@@ -31,6 +31,7 @@ case "${GITHUB_EVENT_NAME}" in
 esac
 
 echo -e "PREV_TAG: ${PREV_TAG}\nLAST_TAG: ${LAST_TAG}\n\nDIFF:"
+git diff --name-only
 git diff --name-only ${PREV_TAG}..${LAST_TAG}
 CHANGES_DETECTED=$(git diff --name-only ${PREV_TAG}..${LAST_TAG} | grep -Ef ${PATH_LIST} | wc -l || true)
 
