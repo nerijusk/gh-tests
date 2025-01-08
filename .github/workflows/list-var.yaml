@@ -1,12 +1,15 @@
 name: list var test
 on:
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 env:
-  PATHS: |
+  DEPLOYMENT_PATHS: |
     ^LICENSE
     ^.github/workflows
 jobs:
-  production-deploy-needed:
+  deployment-needed:
     runs-on: ubuntu-latest
     outputs:
       deploy_needed: ${{ steps.check.outputs.deploy_needed }}
@@ -17,11 +20,11 @@ jobs:
           fetch-depth: 0
       - name: Check if deploy is needed
         id: check
-        run: bash scripts/prod-deploy-check.sh
+        run: bash scripts/deploy-check.sh
   production-deploy:
     needs:
-      - production-deploy-needed
-    if: needs.production-deploy-needed.outputs.deploy_needed == 'true'
+      - deployment-needed
+    if: needs.deployment-needed.outputs.deploy_needed == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
