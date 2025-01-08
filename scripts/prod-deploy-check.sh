@@ -14,8 +14,8 @@ echo -n "${PATHS}" >${PATH_LIST}
 echo "Paths to check:"
 cat ${PATH_LIST}
 
-git branch -a
-git log -n5
+# git branch -a
+# git log -n5
 
 case "${GITHUB_EVENT_NAME}" in
 "push")
@@ -25,7 +25,7 @@ case "${GITHUB_EVENT_NAME}" in
 "pull_request")
     PREV_TAG="origin/main"
     LAST_TAG="origin/${GITHUB_HEAD_REF}"
-    git checkout ${GITHUB_HEAD_REF}
+    # git checkout ${GITHUB_HEAD_REF}
     # PREV_TAG="remotes/origin/main"
     # LAST_TAG="remotes/origin/${GITHUB_REF_NAME}"
     ;;
