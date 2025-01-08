@@ -3,8 +3,8 @@
 DEBUG=${RUNNER_DEBUG:-0}
 if [[ ${DEBUG} -eq 1 ]]; then
     set -x
-    env | sort
 fi
+env | sort
 
 set -euo pipefail
 
@@ -23,7 +23,7 @@ case "${GITHUB_EVENT_NAME}" in
     ;;
 "pull_request")
     PREV_TAG="remotes/origin/main"
-    LAST_TAG=${GITHUB_REF_NAME}
+    LAST_TAG="remotes/origin/${GITHUB_REF_NAME}"
     ;;
 esac
 
