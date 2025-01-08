@@ -20,16 +20,16 @@ case "${GITHUB_EVENT_NAME}" in
 "push")
     PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
     LAST_TAG=$(git tag --sort=v:refname | tail -n1)
-    echo -e "PREV_TAG: ${PREV_TAG}\nLAST_TAG: ${LAST_TAG}"
-    CHANGES_DETECTED=$(git diff --name-only ${PREV_TAG}..${LAST_TAG} | grep -Ef ${PATH_LIST} | wc -l || true)
     ;;
 "pull_request")
-    PREV_TAG=main
+    PREV_TAG="remotes/origin/main"
     LAST_TAG=${GITHUB_REF_NAME}
-    echo -e "PREV_TAG: ${PREV_TAG}\nLAST_TAG: ${LAST_TAG}"
-    CHANGES_DETECTED=$(git diff --name-only main | grep -Ef ${PATH_LIST} | wc -l || true)
     ;;
 esac
+
+echo -e "PREV_TAG: ${PREV_TAG}\nLAST_TAG: ${LAST_TAG}\n\nDIFF:"
+git diff --name-only ${PREV_TAG}..${LAST_TAG}
+CHANGES_DETECTED=$(git diff --name-only ${PREV_TAG}..${LAST_TAG} | grep -Ef ${PATH_LIST} | wc -l || true)
 
 echo "CHANGES_DETECTED: ${CHANGES_DETECTED}"
 if [[ "${CHANGES_DETECTED}" -gt 0 ]]; then
