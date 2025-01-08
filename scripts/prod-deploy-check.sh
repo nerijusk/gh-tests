@@ -11,7 +11,7 @@ set -euo pipefail
 PATH_LIST=$(mktemp)
 
 echo -n "${PATHS}" >${PATH_LIST}
-echo "PATH_LIST:"
+echo -e "\nPATH_LIST:"
 cat ${PATH_LIST}
 
 case "${GITHUB_EVENT_NAME}" in
