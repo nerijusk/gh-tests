@@ -3,8 +3,8 @@
 DEBUG=${RUNNER_DEBUG:-0}
 if [[ ${DEBUG} -eq 1 ]]; then
     set -x
+    env | sort
 fi
-env | sort
 
 set -euo pipefail
 
@@ -15,6 +15,7 @@ echo "Paths to check:"
 cat ${PATH_LIST}
 
 git branch -a
+git log -n5
 
 case "${GITHUB_EVENT_NAME}" in
 "push")
