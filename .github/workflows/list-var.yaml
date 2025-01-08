@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
       - name: Check if deploy is needed
         id: check
-        run: bash scripts/prod-deploy-check.sh
+        run: bash scripts/deploy-check.sh
   production-deploy:
     needs:
       - deployment-needed
