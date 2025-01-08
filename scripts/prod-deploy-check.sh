@@ -3,14 +3,12 @@
 DEBUG=${RUNNER_DEBUG:-0}
 if [[ ${DEBUG} -eq 1 ]]; then
     set -x
-    env | sort
 fi
-
 set -euo pipefail
 
 PATH_LIST=$(mktemp)
 
-echo -n "${PATHS}" >${PATH_LIST}
+echo -n "${DEPLOYMENT_PATHS}" >${PATH_LIST}
 echo -e "\nPATH_LIST:"
 cat ${PATH_LIST}
 

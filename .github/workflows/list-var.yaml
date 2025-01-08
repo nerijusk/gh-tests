@@ -5,7 +5,7 @@ on:
       - main
   workflow_dispatch:
 env:
-  PATHS: |
+  DEPLOYMENT_PATHS: |
     ^LICENSE
     ^.github/workflows
 jobs:
