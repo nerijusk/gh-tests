@@ -14,6 +14,8 @@ echo -n "${PATHS}" >${PATH_LIST}
 echo "Paths to check:"
 cat ${PATH_LIST}
 
+git branch -a
+
 case "${GITHUB_EVENT_NAME}" in
 "push")
     PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
