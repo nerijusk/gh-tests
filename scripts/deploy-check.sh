@@ -15,8 +15,13 @@ cat ${PATH_LIST}
 
 case "${GITHUB_EVENT_NAME}" in
 "push")
-    PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
-    LAST_TAG=$(git tag --sort=v:refname | tail -n1)
+    if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+        PREV_TAG=$(git tag --sort=v:refname | tail -n2 | head -n1)
+        LAST_TAG=$(git tag --sort=v:refname | tail -n1)
+    else
+        PREV_TAG="${GITHUB_SHA}^"
+        LAST_TAG="${GITHUB_SHA}"
+    fi
     ;;
 "pull_request")
     PREV_TAG="origin/main"
