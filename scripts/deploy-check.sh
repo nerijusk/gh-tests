@@ -39,4 +39,5 @@ if [[ "${CHANGES_DETECTED}" -gt 0 ]]; then
 else
     echo "deploy_needed=false" >>"${GITHUB_OUTPUT}"
 fi
+
 rm -f ${PATH_LIST}
