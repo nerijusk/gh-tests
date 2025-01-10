@@ -2,6 +2,7 @@
 
 DEBUG=${RUNNER_DEBUG:-0}
 if [[ ${DEBUG} -eq 1 ]]; then
+    env | sort
     set -x
 fi
 set -euo pipefail
