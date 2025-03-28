@@ -1,19 +1,24 @@
 name: concurrency
 on:
   workflow_dispatch:
-concurrency:
-  group: concurrency-lock
-  cancel-in-progress: false
 jobs:
+  # first:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run a one-line script
+  #       run: |
+  #         echo "1: ${{ github.workflow }}-${{ github.ref }}"
+  # second:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run a one-line script
+  #       run: |
+  #         echo "2: ${{ github.workflow }}-${{ github.ref }}"
   first:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run a one-line script
-        run: |
-          echo "1: ${{ github.workflow }}-${{ github.ref }}"
+    uses: ./.github/workflows/empty-input.yaml
+    with:
+      logLevel: 'error'
   second:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run a one-line script
-        run: |
-          echo "2: ${{ github.workflow }}-${{ github.ref }}"
+    uses: ./.github/workflows/empty-input.yaml
+    with:
+      logLevel: 'warn'

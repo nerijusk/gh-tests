@@ -6,6 +6,15 @@ on:
         description: 'Log level'
         required: false
         type: string
+  workflow_call:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: false
+        type: string
+concurrency:
+  group: concurrency-lock
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
