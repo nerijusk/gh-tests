@@ -1,6 +1,9 @@
 name: concurrency
 on:
   workflow_dispatch:
+concurrency:
+  group: concurrency-lock
+  cancel-in-progress: false
 jobs:
   first:
     runs-on: ubuntu-latest
