@@ -1,0 +1,16 @@
+name: concurrency
+on:
+  workflow_dispatch:
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        run: |
+          echo "1: ${{ github.workflow }}-${{ github.ref }}"
+  second:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        run: |
+          echo "2: ${{ github.workflow }}-${{ github.ref }}"
