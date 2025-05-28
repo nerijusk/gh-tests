@@ -14,6 +14,10 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v4
 
+      - name: make a change
+        run: |
+          expr $(cat dummy/test.txt) + 1 >dummy/test.txt
+
       - name: create pull request
         uses: peter-evans/create-pull-request@v7
         with:
