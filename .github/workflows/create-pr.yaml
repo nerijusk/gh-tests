@@ -19,6 +19,7 @@ jobs:
           expr $(cat dummy/test.txt) + 1 >dummy/test.txt
 
       - name: create pull request
+        id: create-pr
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PR_TOKEN }}
@@ -28,3 +29,11 @@ jobs:
           base: main
           branch: pr-create-test
           title: 'chore(core): automated pull request'
+
+      - name: merge pull request
+        if: ${{ steps.create-pr.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr checks ${{ steps.create-pr.outputs.pull_request_number }} --required --watch --interval 15
+          gh pr merge ${{ steps.create-pr.outputs.pull_request_number }} --admin --delete-branch --squash
