@@ -27,3 +27,4 @@ jobs:
           body: This is a new pull request
           base: main
           branch: pr-create-test
+          title: 'chore(core): automated pull request'
