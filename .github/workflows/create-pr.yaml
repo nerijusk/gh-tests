@@ -1,0 +1,25 @@
+name: create pull request
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          # token: ${{ secrets.PR_TOKEN }}
+          # committer: 'Nerijus K. <14043736+nerijusk@users.noreply.github.com>'
+          # author: 'Nerijus K. <14043736+nerijusk@users.noreply.github.com>'
+          body: This is a new pull request
+          base: main
+          branch: pr-create-test
