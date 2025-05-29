@@ -24,6 +24,7 @@ jobs:
         with:
           # token: ${{ secrets.PR_TOKEN }}
           author: 'Nerijus K. <14043736+nerijusk@users.noreply.github.com>'
+          committer: 'Nerijus K. <14043736+nerijusk@users.noreply.github.com>'
           body: This is a new pull request
           base: main
           branch: pr-create-test
@@ -34,7 +35,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr view ${{ steps.create-pr.outputs.pull-request-number }} --json autoMergeRequest,mergeStateStatus,mergeable,number,state,statusCheckRollup,title
+          gh pr view ${{ steps.create-pr.outputs.pull-request-number }} \
+            --json autoMergeRequest,mergeStateStatus,mergeable,number,state,statusCheckRollup,title | jq -r .
           echo "Giving some time for GitHub to start checks on pull request" && sleep 15
           gh pr checks ${{ steps.create-pr.outputs.pull-request-number }} --required --watch --interval 15
           gh pr merge ${{ steps.create-pr.outputs.pull-request-number }} --admin --delete-branch --squash
