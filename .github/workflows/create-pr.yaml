@@ -22,7 +22,8 @@ jobs:
         id: create-pr
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.PR_TOKEN }}
+          # token: ${{ secrets.PR_TOKEN }}
+          author: 'Nerijus K. <14043736+nerijusk@users.noreply.github.com>'
           body: This is a new pull request
           base: main
           branch: pr-create-test
