@@ -1,13 +1,16 @@
 name: remote test
+
 on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'
+        description: Log level
         required: false
         type: string
+
 jobs:
   build:
     uses: nerijusk/gh-template-test/.github/workflows/remote-workflow-1.yaml@main
     with:
       logLevel: ${{ inputs.logLevel }}
+      some_number: 1
