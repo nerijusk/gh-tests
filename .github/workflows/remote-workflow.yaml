@@ -16,7 +16,7 @@ jobs:
     uses: nerijusk/gh-template-test/.github/workflows/remote-workflow-1.yaml@main
     with:
       logLevel: ${{ inputs.logLevel }}
-      some_number: 3
+      some_number: 4
   build2:
     uses: nerijusk/gh-template-test/.github/workflows/remote-workflow-1.yaml@main
     with:
