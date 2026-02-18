@@ -12,6 +12,10 @@ on:
         required: true
         default: true
         type: boolean
+      bump:
+        type: choice
+        default: patch
+        options: [major, minor, patch]
   push:
     branches:
       - main
@@ -35,3 +39,26 @@ jobs:
       - name: bool test 2
         if: ${{ !inputs.someBool }}
         run: echo "Hello, World!"
+      - name: Configure version template dynamically
+        id: version_template
+        run: |
+          if [ "${{ inputs.bump }}" = "major" ]; then
+            VERSION_VAR="\$NEXT_MAJOR_VERSION"
+          elif [ "${{ inputs.bump }}" = "minor" ]; then
+            VERSION_VAR="\$NEXT_MINOR_VERSION"
+          else
+            VERSION_VAR="\$NEXT_PATCH_VERSION"
+          fi
+
+          # Update the config file to use the selected version template
+          cat > release-drafter.yml << EOF
+          template: |
+            ## What's Changed
+
+            \$CHANGES
+          change-template: '- \$TITLE @\$AUTHOR (#\$NUMBER)'
+          name-template: 'v${VERSION_VAR}'
+          tag-template: 'v${VERSION_VAR}'
+          EOF
+      - name: check version template
+        run: cat release-drafter.yml
