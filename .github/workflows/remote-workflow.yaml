@@ -35,3 +35,5 @@ jobs:
       - name: bool test 2
         if: ${{ !inputs.someBool }}
         run: echo "Hello, World!"
+      - name: list env
+        run: env | sort
