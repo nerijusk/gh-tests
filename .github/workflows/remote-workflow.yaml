@@ -17,7 +17,7 @@ on:
       - main
 
 jobs:
-  build:
+  build1:
     uses: nerijusk/gh-template-test/.github/workflows/remote-workflow-1.yaml@main
     with:
       logLevel: ${{ inputs.logLevel }}
