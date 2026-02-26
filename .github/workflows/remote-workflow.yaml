@@ -37,3 +37,7 @@ jobs:
         run: echo "Hello, World!"
       - name: list env
         run: env | sort
+      - name: show webhook content
+        run: |
+          echo "Webhook content:"
+          cat ${{ github.event_path }}
